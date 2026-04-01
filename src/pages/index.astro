@@ -1,10 +1,16 @@
 ---
 import List from '../components/List.jsx';
 import Layout from '../layouts/Layout.astro';
-import { countries } from '../data/countries.js';
+import { readFileSync } from "fs";
+import { parse } from "csv-parse/sync";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const records = countries;
+const csvText = readFileSync("countries.csv", "utf-8");
+
+const records = parse(csvText, {
+  columns: true,
+  skip_empty_lines: true,
+});
 ---
 
 <Layout>
